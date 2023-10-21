@@ -1,1 +1,4 @@
-Django~=4.2.6
+django
+psycopg2-binary
+pillow
+ipython
