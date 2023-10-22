@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+
+{% block content_product %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">SkyStoreProduct</h1>
+    <p class="lead">SkyStoreProduct - это отличный магазин продуктов</p>
+</div>
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-3 font-weight-normal">{{ object_list_prod.0 }} {{object_list_prod.0.description}}</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled ">
+                        <img src="/static/br.jpg"  width="210" height="130">
+                        <li> {{object_list_prod.0.image}} </li>
+                        <li> {{object_list_prod.0.price}} рублей за кг </li>
+                        <li> ____________________________ </li>
+                        <li> Информация актуальна на </li>
+                        <li> {{object_list_prod.0.last_modified_date}}</li>
+                    </ul>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
