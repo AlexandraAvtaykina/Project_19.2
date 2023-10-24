@@ -1,6 +1,7 @@
 {% extends 'catalog/base.html' %}
 
-{% block content_product1 %}
+{% block content %}
+{% load my_tags %}
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">SkyStoreProduct</h1>
     <p class="lead">SkyStoreProduct - это отличный магазин продуктов</p>
@@ -15,7 +16,7 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled ">
-                        <img src="/static/br.jpg"  width="210" height="130">
+                        <img src="{{ object_list_prod.0.image|media_url }}" style="width: 100%;"/>
                         <li> {{object_list_prod.0.image}} </li>
                         <li> {{object_list_prod.0.price}} рублей за кг </li>
                         <li> ____________________________ </li>

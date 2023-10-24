@@ -12,34 +12,10 @@
             {% for object_prod in object_list_prod %}
                 <div class="col-3">
                     <div class="card mb-4 box-shadow">
-                        <div class="card-header">
+                        <div class="card-header" style="width: 100%;">
                             <h4 class="my-0 font-weight-normal">{{ object_prod|title }}</h4>
-                            {% if object_prod|title == 'Брусника' %}
-                             <img src="{{ object.img|mediapath }}" />
-                            <div class="card-body">
-                                <a class="btn btn-lg btn-block btn-outline-primary" href="/product/">Подробнее</a>
-                            </div>
-                            {% elif object_prod|title == 'Земляника' %}
-                            <img src="/static/zm.jpg"  width="210" height="130">
-                            <div class="card-body">
-                                <a class="btn btn-lg btn-block btn-outline-primary" >Подробнее</a>
-                            </div>
-                            {% elif object_prod|title == 'Огурец' %}
-                            <img src="/static/og.jpg"  width="210" height="130">
-                            <div class="card-body">
-                                <a class="btn btn-lg btn-block btn-outline-primary" >Подробнее</a>
-                            </div>
-                            {% elif object_prod|title == 'Помидор' %}
-                            <img src="/static/pom.jpg"  width="210" height="130">
-                            <div class="card-body">
-                                <a class="btn btn-lg btn-block btn-outline-primary" >Подробнее</a>
-                            </div>
-                            {% elif object_prod|title == 'Яблоко' %}
-                            <img src="/static/apple.jpg"  width="210" height="130">
-                            <div class="card-body">
-                                <a class="btn btn-lg btn-block btn-outline-primary" >Подробнее</a>
-                            </div>
-                            {% endif %}
+                            <img src="{{ object_prod.image|media_url }}" style="width: 100%;"/>
+                            <a class="btn btn-lg btn-block btn-outline-primary" href="/product/">Подробнее</a>
                         </div>
                     </div>
                 </div>
