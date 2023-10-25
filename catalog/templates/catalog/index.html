@@ -14,7 +14,7 @@
                     <div class="card mb-4 box-shadow">
                         <div class="card-header" style="width: 100%;">
                             <h4 class="my-0 font-weight-normal">{{ object_prod|title }}</h4>
-                            <img src="{{ object_prod.image|media_url }}" style="width: 100%;"/>
+                            <img src="{% mediapath object_prod.image %}" style="width: 100%;"/>
                             <a class="btn btn-lg btn-block btn-outline-primary" href="/product/">Подробнее</a>
                         </div>
                     </div>
