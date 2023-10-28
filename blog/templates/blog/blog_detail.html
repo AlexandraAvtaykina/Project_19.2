@@ -12,19 +12,17 @@
         <div class="col-5">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <h4 class="my-3 font-weight-normal">{{ product}} </h4>
+                    <h4 class="my-3 font-weight-normal">{{ object.title }} ({{ object.slug }})</h4>
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled ">
-                        <img src="{% mediapath product.image %}" style="width: 80%;"/>
-                        <li> {{product.description}} </li>
+                        <img src="{{ object.image }}" style="width: 80%;"/>
                         <li> ____________________________ </li>
-                        <li> {{product.price}} рублей за кг </li>
+                        <li> {{object.body}} </li>
                         <li> ____________________________ </li>
-                        <li> Информация актуальна на </li>
-                        <li> {{product.last_modified_date}}</li>
+                        <li> Просмотры: {{ object.views_count }} </li>
                     </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                    <a href="{% url 'blog:list' %}" class="p-2 btn btn-outline-primary">Назад</a>
                 </div>
             </div>
         </div>

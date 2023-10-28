@@ -10,5 +10,4 @@ register = template.Library()
 def mediapath(image):
 
     media_url = settings.MEDIA_URL
-
     return f'{media_url}{image}'
