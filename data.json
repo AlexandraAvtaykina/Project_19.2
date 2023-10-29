@@ -1,0 +1,120 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Овощи",
+      "description": "остатки"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Фрукты",
+      "description": "остатки"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Ягоды",
+      "description": "остатки"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "name": "Бакалея",
+      "description": "остатки"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "name": "Гастрономия",
+      "description": "новые поступления"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Огурец",
+      "description": "бакинский",
+      "image": "",
+      "category": 1,
+      "price": 200,
+      "creation_data": "2023-10-21T11:51:45Z",
+      "last_modified_date": "2023-10-21T11:51:50Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Помидор",
+      "description": "краснодарский",
+      "image": "",
+      "category": 1,
+      "price": 300,
+      "creation_data": "2023-10-21T11:53:56Z",
+      "last_modified_date": "2023-10-21T11:53:58Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Яблоко",
+      "description": "голд",
+      "image": "",
+      "category": 2,
+      "price": 250,
+      "creation_data": "2023-10-21T12:08:17Z",
+      "last_modified_date": "2023-10-21T12:08:19Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Брусника",
+      "description": "лесная",
+      "image": "",
+      "category": 3,
+      "price": 600,
+      "creation_data": "2023-10-21T13:14:11Z",
+      "last_modified_date": "2023-10-21T13:14:13Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "Малина",
+      "description": "тепличная",
+      "image": "",
+      "category": 3,
+      "price": 800,
+      "creation_data": "2023-10-21T13:14:57Z",
+      "last_modified_date": "2023-10-21T13:14:59Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+      "name": "Земляника",
+      "description": "полевая",
+      "image": "",
+      "category": 3,
+      "price": 750,
+      "creation_data": "2023-10-21T13:16:54Z",
+      "last_modified_date": "2023-10-21T13:16:56Z"
+    }
+  }
+]
