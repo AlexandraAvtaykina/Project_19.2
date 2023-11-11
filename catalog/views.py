@@ -24,6 +24,11 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/product.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['version'] = Version.objects.filter(product=self.kwargs['pk'])
+        return context
+
 
 class ProductCreateView(CreateView):
     model = Product
@@ -61,3 +66,5 @@ class ProductDeleteView(DeleteView):
 
 class VersionListView(ListView):
     model = Version
+
+
