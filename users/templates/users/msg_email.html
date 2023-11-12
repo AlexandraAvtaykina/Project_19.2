@@ -1,0 +1,11 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="text-center">
+    {% csrf_token %}
+    <h3 class="card-title">Подтвердите вашу электронную почту</h3>
+    <p>Для завершения регистрации, пожалуйста пройдите по ссылке:</p>
+    <p><a href="{{ domain }}{% url 'users:verify_email' uid=uid token=token %}">Подтвердить электронную почту</a> </p>
+</div>
+
+{% endblock %}
