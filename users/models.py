@@ -1,7 +1,12 @@
+import random
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from blog.models import NULLABLE
+
+
+code = ''.join([str(random.randint(0, 9)) for _ in range(12)])
 
 
 class User(AbstractUser):
@@ -13,13 +18,14 @@ class User(AbstractUser):
     country = models.CharField(max_length=35, verbose_name='Страна')
 
     email_verified = models.BooleanField(default=False, verbose_name='Верификация почты')
-    email_verification_token = models.CharField(max_length=255, **NULLABLE)
+
+    ver_code = models.CharField(max_length=15, default=code, verbose_name='Проверочный код')
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return f' {self.country}'
+        return f' {self.email}'
 
     class Meta:
         verbose_name = 'Пользователь'

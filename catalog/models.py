@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import PROTECT
 
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -24,6 +26,8 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена за покупку')
     creation_data = models.DateTimeField(verbose_name='Дата создания')
     last_modified_date = models.DateTimeField(verbose_name='Дата последнего изменения', **NULLABLE)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE)
 
     def __str__(self):
         return f'{self.name}'

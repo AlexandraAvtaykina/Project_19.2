@@ -1,11 +1,25 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
-<div class="text-center">
-    {% csrf_token %}
-    <h3 class="card-title">Подтвердите вашу электронную почту</h3>
-    <p>Для завершения регистрации, пожалуйста пройдите по ссылке:</p>
-    <p><a href="{{ domain }}{% url 'users:verify_email' uid=uid token=token %}">Подтвердить электронную почту</a> </p>
-</div>
-
+  <div class="col-12">
+      <form class='row' method="post" enctype="multipart/form-data">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">
+                  Введите код
+                </h4>
+              </div>
+              <div class="card-body">
+                  {% csrf_token %}
+                  <input type="text" name="ver_code" class="form-control" id="ver_code" required>
+              </div>
+              <div class="card-footer">
+                  <button type="submit" class="btn btn-success">Подтвердить</button>
+              </div>
+            </div>
+          </div>
+      </form>
+  </div>
 {% endblock %}

@@ -12,7 +12,6 @@
                 </h4>
               </div>
               <div class="card-body">
-
                   {% csrf_token %}
                   {{ form.as_p }}
                   <a class="btn btn-secondary btn-sm" href="{% url 'users:generate_new_password' %}" >Восстановить пароль</a>

@@ -21,13 +21,11 @@
                         <li> ____________________________ </li>
                         <li> {{product.price}} рублей за кг </li>
                         <li> ____________________________ </li>
-                        <li> Информация актуальна на </li>
-                        <li> {{product.last_modified_date}}</li>
-                        <li> Версия:</li>
-                        {% for v in version %}
-                            {{v.number_version}}
-                            <li></li>
-                        {% endfor%}
+                        <li> Информация актуальна на {{product.last_modified_date|default:'сегодняшний день'}}</li>
+                        <li> Версия: {% for v in version %}
+                                            {{v.number_version}}
+                                     {% endfor%}</li>
+                        <li> Автор: {{object.user|default:'Не указан'}}</li>
                     </ul>
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
                 </div>

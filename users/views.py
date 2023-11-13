@@ -9,10 +9,23 @@ from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 
 from users.forms import UserRegisterForm, UserProfileForm
 from users.models import User
+
+
+# def generate_code(request):
+#     code = ''.join([str(random.randint(0, 9)) for _ in range(12)])
+#     send_mail(
+#         subject='Подтверждение почты',
+#         message=f'Проверочный код {code}',
+#         from_email=settings.EMAIL_HOST_USER,
+#         recipient_list=[request.user.email]
+#     )
+#     request.user.set_password(code)
+#     request.user.save()
+#     return redirect(reverse('users:login'))
 
 
 class RegisterView(CreateView):
@@ -22,39 +35,27 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        new_user = form.save()
-
-        token = ''.join(random.choices(string.ascii_letters + string.digits, k=50))
-        new_user.email_verification_token = token
-        new_user.save()
-
-        current_site = get_current_site(self.request)
-        mail_subject = ('Подтвердите ваш аккаунт. '
-                        'Пройдите по этой ссылке для подтверждения регистрации:')
-        message = render_to_string(
-            'users/msg_email.html',
-            {'user': new_user,
-             'domain': current_site.domain,
-             'token': token,
-             'uid': new_user.pk,
-             }
-        )
-
-        send_mail(mail_subject, message, settings.EMAIL_HOST_USER, [new_user.email])
-        return response
+        if form.is_valid():
+            new_user = form.save()
+            send_mail(
+                subject='Подтверждение почты',
+                message=f'Код {new_user.ver_code}',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[new_user.email]
+            )
+        return super().form_valid(form)
 
 
-class VerifyEmailView(View):
+class VerificationTemplateView(TemplateView):
+    template_name = 'users/msg_email.html'
 
-    def get(self, request, token):
-        try:
-            user = User.objects.get(email_verification_token=token)
-            user.email_verified = True
-            user.save()
-            return redirect('users:login')
-        except User.DoesNotExist:
-            return HttpResponse('Неверная ссылка')
+    def post(self, request):
+        ver_code = request.POST.get('ver_code')
+        user_code = User.objects.filter(ver_code=ver_code).first()
+        if user_code:
+            user_code.email_verified = True
+            user_code.save()
+        return redirect('users:register')
 
 
 class ProfileView(UpdateView):
