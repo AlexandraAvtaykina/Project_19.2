@@ -7,7 +7,9 @@
         <h1 class="display-4">Витаминка</h1>
         <p class="lead">Витаминка - магазин свежих ягод</p>
         <div class="col-5 mb-5">
-            <a class="btn btn-outline-primary" href=" {% url 'catalog:create' %} ">Добавить продукт</a>
+            {% if user.is_authenticated %}
+                <a class="btn btn-outline-primary" href=" {% url 'catalog:create' %} ">Добавить продукт</a>
+            {% endif %}
         </div>
     </div>
 
@@ -22,8 +24,10 @@
                             <img src="{% mediapath product.image %}" style="width: 90%;"/>
                             <p class="card-text">{{ product.description|truncatechars:100 }}</p>
                             <a class="btn btn-outline-primary" href="/product/{{ product.pk }}">Подробнее</a>
-                            <a class="btn btn-outline-primary" href="{% url 'catalog:update' product.pk %}">Редактировать</a>
-                            <a class="btn btn-outline-primary" href="{% url 'catalog:delete' product.pk %}">Удалить</a>
+                            {% if user.is_authenticated %}
+                                <a class="btn btn-outline-primary" href="{% url 'catalog:update' product.pk %}">Редактировать</a>
+                                <a class="btn btn-outline-primary" href="{% url 'catalog:delete' product.pk %}">Удалить</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -28,6 +28,7 @@ class Product(models.Model):
     last_modified_date = models.DateTimeField(verbose_name='Дата последнего изменения', **NULLABLE)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE)
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовано')
 
     def __str__(self):
         return f'{self.name}'
