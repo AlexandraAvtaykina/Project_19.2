@@ -36,10 +36,18 @@ class VerificationTemplateView(TemplateView):
     def post(self, request):
         ver_code = request.POST.get('ver_code')
         user_code = User.objects.filter(ver_code=ver_code).first()
-        if user_code:
-            user_code.email_verified = True
+
+        if user_code is not None and user_code.ver_code == ver_code:
+            user_code.is_active = True
             user_code.save()
-        return redirect('users:login')
+            return redirect('users:login')
+        else:
+            return redirect('users:verify_email_error')
+
+
+class ErrorVerificationTemplateView(TemplateView):
+    template_name = 'users/verify_email_error.html'
+    success_url = reverse_lazy('users:msg_email')
 
 
 # Профиль пользователя

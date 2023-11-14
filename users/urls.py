@@ -2,7 +2,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 
 from users.apps import UsersConfig
-from users.views import RegisterView, ProfileView, generate_new_password, VerificationTemplateView
+from users.views import (RegisterView, ProfileView, generate_new_password, VerificationTemplateView,
+                         ErrorVerificationTemplateView)
 
 app_name = UsersConfig.name
 
@@ -13,5 +14,5 @@ urlpatterns = [
     path('profile/', ProfileView.as_view(), name='profile'),
     path('verify_email/', VerificationTemplateView.as_view(), name='verify_email'),
     path('profile/genpassword/', generate_new_password, name='generate_new_password'),
-
+    path('verify_email/error/', ErrorVerificationTemplateView.as_view(), name='verify_email_error'),
 ]
