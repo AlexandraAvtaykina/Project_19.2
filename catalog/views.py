@@ -1,4 +1,6 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.forms import inlineformset_factory
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
@@ -6,14 +8,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version
-
-
-class ProtectView(View):
-    def get(self, *args, **kwargs):
-        if self.request.user.id is None:
-            return redirect('users:login')
-        else:
-            return super().get(*args, **kwargs)
 
 
 class ProductListView(ListView):
@@ -39,7 +33,7 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductCreateView(ProtectView, CreateView):
+class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
@@ -53,9 +47,10 @@ class ProductCreateView(ProtectView, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(ProtectView, UpdateView):
+class ProductUpdateView(PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
+    permission_required = 'catalog.change_product'
     success_url = reverse_lazy('catalog:index')
 
     def get_context_data(self, **kwargs):
@@ -75,8 +70,14 @@ class ProductUpdateView(ProtectView, UpdateView):
             formset.save()
         return super().form_valid(form)
 
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if not self.request.user.is_staff and not self.request.user.is_superuser and self.request.user != self.object.user:
+            raise Http404
+        return self.object
 
-class ProductDeleteView(ProtectView, DeleteView):
+
+class ProductDeleteView(DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:index')
 

@@ -10,10 +10,10 @@ class StyleFormMixin:
             field.widget.attrs['class'] = 'form-control'
 
 
-class ProductForm(StyleFormMixin, forms.ModelForm):
+class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('name', 'description', 'image', 'creation_data', 'price', 'category')
+        fields = ('name', 'description', 'image', 'creation_data', 'price', 'category', 'is_published')
 
     def clean_name(self):
         bad_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
