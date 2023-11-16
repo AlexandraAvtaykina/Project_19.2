@@ -1,12 +1,11 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.forms import inlineformset_factory
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy, reverse
-from django.views import View
+from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, MProductForm
 from catalog.models import Product, Version
 
 
@@ -72,9 +71,15 @@ class ProductUpdateView(PermissionRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        if not self.request.user.is_staff and not self.request.user.is_superuser and self.request.user != self.object.user:
+        if (self.request.user != self.object.user and not self.request.user.is_staff and
+                not self.request.user.is_superuser and self.request.user.has_perm('catalog.product_published')):
             raise Http404
         return self.object
+
+    def get_form_class(self):
+        if self.request.user.has_perm('catalog.product_published'):
+            return MProductForm
+        return ProductForm
 
 
 class ProductDeleteView(DeleteView):
