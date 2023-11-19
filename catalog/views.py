@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from catalog.forms import ProductForm, VersionForm, MProductForm
 from catalog.models import Product, Version
+from catalog.services import cache_category
 
 
 class ProductListView(ListView):
@@ -45,6 +46,9 @@ class ProductCreateView(CreateView):
 
         return super().form_valid(form)
 
+    def get_queryset(self):
+        return cache_category()
+
 
 class ProductUpdateView(PermissionRequiredMixin, UpdateView):
     model = Product
@@ -71,8 +75,8 @@ class ProductUpdateView(PermissionRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        if (self.request.user != self.object.user and not self.request.user.is_staff and
-                not self.request.user.is_superuser and self.request.user.has_perm('catalog.product_published')):
+        if (self.request.user != self.object.user and not self.request.user.is_staff
+                and not self.request.user.is_superuser and self.request.user.has_perm('catalog.product_published')):
             raise Http404
         return self.object
 
